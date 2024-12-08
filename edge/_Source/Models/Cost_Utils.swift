@@ -30,6 +30,8 @@ enum CostError: Error {
     case invalidGroup
 }
 
+
+// refactor: remover isso aqui v
 extension Cost {
     
     // Esta função nos ajuda a testar diferentes cenários de transição

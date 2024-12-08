@@ -37,7 +37,7 @@ class PeriodConfigurationManager {
         defaults.set(data, forKey: StorageKey.configuration)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
 }

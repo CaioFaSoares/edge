@@ -13,4 +13,6 @@ enum PeriodRepositoryError: Error {
     case periodAlreadyExists
     case cannotDeleteActivePeriod
     case invalidConfiguration
+    case periodIsEmpty
+    case periodNotFound
 }

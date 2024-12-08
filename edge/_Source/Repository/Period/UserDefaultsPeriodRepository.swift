@@ -55,16 +55,63 @@ class UserDefaultsPeriodRepository: PeriodRepository {
         }
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
     
     func updatePeriod(_ period: Period) async throws {
-        
+//        var periods = try await fetchAllPeriods()
+//        
+//        guard let index = periods.firstIndex(where: { $0.id == period.id }) else {
+//            throw PeriodRepositoryError.periodNotFound
+//        }
+//        
+//        let otherPeriods = periods.filter { $0.id != period.id }
+//        let hasOverlap = otherPeriods.contains { existingPeriod in
+//            period.startDate < existingPeriod.endDate && existingPeriod.startDate < period.endDate
+//        }
+//        
+//        if hasOverlap {
+//            
+//        }
     }
     
     func deletePeriod(_ period: Period) async throws {
+        // Não permitir deletar o período ativo
+        if period.isActive {
+            throw PeriodRepositoryError.cannotDeleteActivePeriod
+        }
         
+        // Buscar todos os períodos
+        var periods = try await fetchAllPeriods()
+        
+        // Remover o período específico
+        periods.removeAll { $0.id == period.id }
+        
+        // Salvar a lista atualizada
+        let encodedData = try JSONEncoder().encode(periods)
+        defaults.set(encodedData, forKey: StorageKey.periods)
+        
+        if !defaults.synchronize() {
+            throw GenericRepositoryError.saveFailed
+        }
+    }
+    
+    func deleteAllPeriods() async throws {
+        var periods = try await fetchAllPeriods()
+        
+        if periods.isEmpty {
+            throw PeriodRepositoryError.periodIsEmpty
+        }
+        
+        periods.removeAll()
+        
+        let data = try JSONEncoder().encode(periods)
+        defaults.set(data, forKey: StorageKey.periods)
+        
+        if !defaults.synchronize() {
+            throw GenericRepositoryError.saveFailed
+        }
     }
     
     

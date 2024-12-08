@@ -12,4 +12,5 @@ protocol PeriodRepository {
     func savePeriod(_ period: Period) async throws
     func updatePeriod(_ period: Period) async throws
     func deletePeriod(_ period: Period) async throws
+    func deleteAllPeriods() async throws
 }

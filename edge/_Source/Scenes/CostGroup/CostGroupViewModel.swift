@@ -11,7 +11,7 @@ class CostGroupViewModel: ObservableObject {
     @Published var costGroups: [CostGroup] = []
     @Published var selectedGroupCosts: [Cost] = []
     @Published var isLoading = false
-    @Published var error: RepositoryError?
+    @Published var error: GenericRepositoryError?
     
     private let repository: CostRepository
     private let periodManager: PeriodManager
@@ -39,7 +39,7 @@ class CostGroupViewModel: ObservableObject {
                 let allGroups = try await repository.fetchAllGroups()
                 costGroups = allGroups.filter { currentPeriod.costGroupIDs.contains($0.id) }
             } catch {
-                self.error = error as? RepositoryError ?? .fetchFailed
+                self.error = error as? GenericRepositoryError ?? .fetchFailed
             }
         }
     }
@@ -52,7 +52,7 @@ class CostGroupViewModel: ObservableObject {
         do {
             costGroups = try await repository.fetchAllGroups()
         } catch {
-            self.error = error as? RepositoryError ?? .fetchFailed
+            self.error = error as? GenericRepositoryError ?? .fetchFailed
         }
     }
     
@@ -62,7 +62,7 @@ class CostGroupViewModel: ObservableObject {
             try await repository.saveGroup(group)
             await loadGroups()  // Recarrega para ter a lista atualizada
         } catch {
-            self.error = error as? RepositoryError ?? .saveFailed
+            self.error = error as? GenericRepositoryError ?? .saveFailed
         }
     }
     
@@ -75,7 +75,7 @@ class CostGroupViewModel: ObservableObject {
                 costGroups.remove(at: index)
             }
         } catch {
-            self.error = error as? RepositoryError ?? .deleteFailed
+            self.error = error as? GenericRepositoryError ?? .deleteFailed
         }
     }
     

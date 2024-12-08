@@ -6,7 +6,7 @@
 //
 
 
-enum RepositoryError: Error {
+enum GenericRepositoryError: Error {
     case saveFailed
     case fetchFailed
     case deleteFailed

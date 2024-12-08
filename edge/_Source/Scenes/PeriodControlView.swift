@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PeriodControlView: View {
     @ObservedObject var periodManager: PeriodManager
+    @State private var showingDayPicker = false
+    @State private var selectedDay = 5
+    @State private var showError = false
     
     var body: some View {
         List {
@@ -32,11 +35,13 @@ struct PeriodControlView: View {
             
             // Seção de Configuração
             Section("Configuração") {
-                HStack {
-                    Text("Dia do Fechamento")
-                    Spacer()
-                    Text("\(periodManager.periodConfiguration.closingDay)")
-                        .foregroundStyle(.secondary)
+                Button(action: { showingDayPicker = true }) {
+                    HStack {
+                        Text("Dia do Fechamento")
+                        Spacer()
+                        Text("\(periodManager.periodConfiguration.closingDay)")
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
             
@@ -63,7 +68,49 @@ struct PeriodControlView: View {
             }
         }
         .navigationTitle("Controle de Períodos")
-    }
+        .sheet(isPresented: $showingDayPicker) {
+                    NavigationStack {
+                        Form {
+                            Picker("Dia do Fechamento", selection: $selectedDay) {
+                                ForEach(1...28, id: \.self) { day in
+                                    Text("\(day)").tag(day)
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                        }
+                        .navigationTitle("Escolher Dia")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Cancelar") {
+                                    showingDayPicker = false
+                                }
+                            }
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Salvar") {
+                                    updateClosingDay()
+                                }
+                            }
+                        }
+                    }
+                    .presentationDetents([.height(300)])
+                }
+                .alert("Erro ao atualizar período", isPresented: $showError) {
+                    Button("OK", role: .cancel) { }
+                }
+            }
+            
+            private func updateClosingDay() {
+                Task {
+                    do {
+                        try await periodManager.updateClosingDay(selectedDay)
+                        showingDayPicker = false
+                    } catch {
+                        showError = true
+                    }
+                }
+            }
+    
     
     // Formatadores
     private func formatDate(_ date: Date) -> String {

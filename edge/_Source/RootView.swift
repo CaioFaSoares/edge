@@ -2,7 +2,7 @@
 //  RootView.swift
 //  edge
 //
-//  Created by Caio Soares on 07/12/24.
+//  Created by Caio Soares on 08/12/24.
 //
 
 import SwiftUI
@@ -11,39 +11,25 @@ struct RootView: View {
     @StateObject private var periodManager = PeriodManager(
         repository: UserDefaultsPeriodRepository()
     )
+    @StateObject private var onboardingManager = OnboardingManager()
+    @StateObject private var viewModel: CostGroupViewModel
     
-    @StateObject private var viewModel = CostGroupViewModel(
-        repository: UserDefaultsCostRepository(),
-        periodManager: PeriodManager(
-            repository: UserDefaultsPeriodRepository()
-        )
-    )
+    init() {
+        let periodManagerInstance = PeriodManager(repository: UserDefaultsPeriodRepository())
+        _viewModel = StateObject(wrappedValue: CostGroupViewModel(
+            repository: UserDefaultsCostRepository(),
+            periodManager: periodManagerInstance
+        ))
+    }
+    
     var body: some View {
-        TabView {
-            NavigationStack {
-                DashboardView()
-                    .navigationTitle("Visão Geral")
-            }
-            .tabItem {
-                Label("Visão Geral", systemImage: "chart.bar.fill")
-            }
-            
-            NavigationStack {
-                CostGroupListView(viewModel: viewModel)
-                    .navigationTitle("Grupos")
-            }
-            .tabItem {
-                Label("Grupos", systemImage: "folder.fill")
-            }
-            
-            NavigationStack {
-                SettingsView(periodManager: periodManager)
-                    .navigationTitle("Configurações")
-            }
-            .tabItem {
-                Label("Configurações", systemImage: "gear")
-            }
+        if !onboardingManager.hasCompletedOnboarding {
+            OnboardingView(
+                periodManager: periodManager,
+                onboardingManager: onboardingManager
+            )
+        } else {
+            MainTabView()
         }
-        .tint(.blue)
     }
 }

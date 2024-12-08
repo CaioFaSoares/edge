@@ -35,7 +35,7 @@ class UserDefaultsCostRepository: CostRepository {
         defaults.set(data, forKey: StorageKey.groups)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
 
@@ -49,7 +49,7 @@ class UserDefaultsCostRepository: CostRepository {
         defaults.set(data, forKey: StorageKey.groups)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
     
@@ -67,14 +67,14 @@ class UserDefaultsCostRepository: CostRepository {
     func updateGroup(_ group: CostGroup) async throws {
         var groups = try await fetchAllGroups()
         
-        guard let index = groups.firstIndex(where: { $0.id == group.id }) else { throw RepositoryError.updateFailed }
+        guard let index = groups.firstIndex(where: { $0.id == group.id }) else { throw GenericRepositoryError.updateFailed }
         groups[index] = group
         
         let data = try JSONEncoder().encode(groups)
         defaults.set(data, forKey: StorageKey.groups)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
     
@@ -110,7 +110,7 @@ class UserDefaultsCostRepository: CostRepository {
         defaults.set(data, forKey: StorageKey.costs)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
     
@@ -132,7 +132,7 @@ class UserDefaultsCostRepository: CostRepository {
         defaults.set(data,forKey: StorageKey.costs)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
     
@@ -148,14 +148,14 @@ class UserDefaultsCostRepository: CostRepository {
         
         var groupCosts = allCosts[groupKey] ?? []
         
-        guard let index = groupCosts.firstIndex(where: { $0.id == cost.id }) else { throw RepositoryError.updateFailed}
+        guard let index = groupCosts.firstIndex(where: { $0.id == cost.id }) else { throw GenericRepositoryError.updateFailed}
         groupCosts[index] = cost
         
         let data = try JSONEncoder().encode(allCosts)
         defaults.set(data,forKey: StorageKey.costs)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
     
@@ -177,7 +177,7 @@ extension UserDefaultsCostRepository {
         defaults.set(encodedData, forKey: StorageKey.costs)
         
         if !defaults.synchronize() {
-            throw RepositoryError.saveFailed
+            throw GenericRepositoryError.saveFailed
         }
     }
 }
