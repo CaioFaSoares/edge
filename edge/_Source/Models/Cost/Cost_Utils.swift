@@ -12,7 +12,8 @@ extension Cost {
     // ⚠️ funcionalidade importante, é interessante isso poder ser desabilitado forçadamente.
     // verifica se o valor do custo pode ser editado
     var isEditable: Bool {
-        state != .launched
+//        state != .launched
+        return true
     }
     
     // tenta transicionar o estado do custo
@@ -23,13 +24,6 @@ extension Cost {
     }
     
 }
-
-enum CostError: Error {
-    case invalidTransition(from: CostState, to: CostState)
-    case invalidAmount
-    case invalidGroup
-}
-
 
 // refactor: remover isso aqui v
 extension Cost {

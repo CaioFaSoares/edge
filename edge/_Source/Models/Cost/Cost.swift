@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cost: Identifiable, Codable {
+struct Cost: Identifiable, Codable, Equatable {
     
     // identity
     let id: UUID

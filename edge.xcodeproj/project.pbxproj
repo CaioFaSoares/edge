@@ -29,9 +29,33 @@
 		D6C1AD8D2D04F2EE008E726F /* edgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = edgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D6AE04712D05E91F00C5AC94 /* Exceptions for "edge" folder in "edge" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				_Source/Utils/Currency.swift,
+			);
+			target = D6C1AD722D04F2EC008E726F /* edge */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		D6AE04722D05E91F00C5AC94 /* Exceptions for "edge" folder in "Copy Bundle Resources" phase from "edge" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = D6C1AD712D04F2EC008E726F /* Resources */;
+			membershipExceptions = (
+				_Source/Utils/Currency.swift,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D6AE04052D0510EB00C5AC94 /* edge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D6AE04712D05E91F00C5AC94 /* Exceptions for "edge" folder in "edge" target */,
+				D6AE04722D05E91F00C5AC94 /* Exceptions for "edge" folder in "Copy Bundle Resources" phase from "edge" target */,
+			);
 			path = edge;
 			sourceTree = "<group>";
 		};

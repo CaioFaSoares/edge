@@ -21,3 +21,17 @@ struct StatusBadge: View {
             .clipShape(Capsule())
     }
 }
+
+struct SeriesBadge: View {
+    let isChild: Bool // Se é um custo filho
+    
+    var body: some View {
+        Text(isChild ? "Parte da Série" : "Início da Série")
+            .font(.caption)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 2)
+            .background(.blue.opacity(0.2))
+            .foregroundStyle(.blue)
+            .clipShape(Capsule())
+    }
+}

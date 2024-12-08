@@ -11,6 +11,7 @@ struct CostGroupDetailView: View {
     let group: CostGroup
     @ObservedObject var viewModel: CostGroupViewModel
     @State private var showingNewCost = false
+    @State private var showingNewSeries = false
     
     var body: some View {
         List {
@@ -30,13 +31,16 @@ struct CostGroupDetailView: View {
             }
             
             Section("Custos") {
-                // Aqui virá a lista de custos
                 if viewModel.costs.isEmpty {
                     Text("Nenhum custo registrado")
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(viewModel.costs) { cost in
-                        CostRowView(cost: cost)
+                        CostRowView(
+                            cost: cost,
+                            isPartOfSeries: cost.parentCostID != nil || !cost.childCostIDs.isEmpty,
+                            viewModel: viewModel
+                        )
                     }
                 }
             }
@@ -44,13 +48,32 @@ struct CostGroupDetailView: View {
         .navigationTitle(group.name)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: { showingNewCost = true }) {
+                Menu {
+                    Button(action: { showingNewCost = true }) {
+                        Label("Novo Custo", systemImage: "plus")
+                    }
+                    
+                    Button(action: { showingNewSeries = true }) {
+                        Label("Nova Série", systemImage: "repeat")
+                    }
+                } label: {
                     Image(systemName: "plus")
                 }
             }
         }
         .sheet(isPresented: $showingNewCost) {
             NewCostView(viewModel: viewModel, group: group)
+        }
+        .sheet(isPresented: $showingNewSeries) {
+            CreateCostSeriesView(viewModel: viewModel, group: group)
+        }
+        .task {
+            await viewModel.loadCostsForGroup(group.id)
+        }
+        .onChange(of: viewModel.costs) { _ in
+            Task {
+                await viewModel.updateGroupAmounts(groupID: group.id)
+            }
         }
     }
 }

@@ -19,4 +19,9 @@ protocol CostRepository {
     func saveCost(_ cost: Cost) async throws
     func deleteCost(_ cost: Cost) async throws
     func updateCost(_ cost: Cost) async throws
+    
+    // Novos métodos para séries
+    func saveSeries(_ costs: [Cost]) async throws
+    func updateFutureCosts(_ fromCost: Cost, newAmount: Decimal) async throws
+    func fetchSeriesCosts(parentID: UUID) async throws -> [Cost]
 }

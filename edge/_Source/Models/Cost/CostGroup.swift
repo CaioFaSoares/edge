@@ -33,4 +33,12 @@ struct CostGroup: Identifiable, Codable {
         launchedAmount = newAmount
     }
     
+    mutating func updateConfirmedAmount(_ newAmount: Decimal) {
+        confirmedAmount = newAmount
+    }
+    
+    mutating func updatePlannedAmount(_ newAmount: Decimal) {
+        plannedAmount = newAmount
+    }
+    
 }
