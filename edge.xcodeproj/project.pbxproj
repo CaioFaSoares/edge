@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D6C1AD752D04F2EC008E726F /* edge */ = {
+		D6AE04052D0510EB00C5AC94 /* edge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = edge;
 			sourceTree = "<group>";
@@ -75,7 +75,7 @@
 		D6C1AD6A2D04F2EC008E726F = {
 			isa = PBXGroup;
 			children = (
-				D6C1AD752D04F2EC008E726F /* edge */,
+				D6AE04052D0510EB00C5AC94 /* edge */,
 				D6C1AD862D04F2EE008E726F /* edgeTests */,
 				D6C1AD902D04F2EE008E726F /* edgeUITests */,
 				D6C1AD742D04F2EC008E726F /* Products */,
@@ -108,7 +108,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D6C1AD752D04F2EC008E726F /* edge */,
+				D6AE04052D0510EB00C5AC94 /* edge */,
 			);
 			name = edge;
 			packageProductDependencies = (
@@ -399,6 +399,7 @@
 				DEVELOPMENT_TEAM = MCC2B4P5MZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +429,7 @@
 				DEVELOPMENT_TEAM = MCC2B4P5MZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
