@@ -41,3 +41,27 @@ struct CostGroupRowView: View {
         .padding(.vertical, 4)
     }
 }
+
+struct CostRowView: View {
+    let cost: Cost
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(cost.description)
+                    .font(.headline)
+                Spacer()
+                Text((cost.amount as NSDecimalNumber) as Decimal.FormatStyle.Currency.FormatInput, format: .currency(code: "BRL"))
+            }
+            
+            HStack {
+                Text(cost.date, style: .date)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                StatusBadge(state: cost.state)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}

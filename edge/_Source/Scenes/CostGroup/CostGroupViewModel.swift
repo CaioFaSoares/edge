@@ -13,6 +13,8 @@ class CostGroupViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: GenericRepositoryError?
     
+    @Published var costs: [Cost] = []
+    
     private let repository: CostRepository
     private let periodManager: PeriodManager
     
@@ -90,5 +92,32 @@ class CostGroupViewModel: ObservableObject {
         }
     }
     
+    @MainActor
+    func addCost(_ cost: Cost) async {
+        do {
+            try await repository.saveCost(cost)
+            await loadCostsForGroup(cost.groupID)
+        } catch {
+            self.error = error as? GenericRepositoryError ?? .saveFailed
+        }
+    }
+    
+    func loadCosts(for group: CostGroup) {
+        Task {
+            await loadCostsForGroup(group.id)
+        }
+    }
+    
+    @MainActor
+    func loadCostsForGroup(_ groupID: UUID) async {
+        do {
+            let costs = try await repository.fetchCosts(for: groupID)
+            // Aqui você pode atualizar uma @Published var com os custos
+            // ou atualizar diretamente o grupo com os novos valores
+            self.costs = costs
+        } catch {
+            self.error = error as? GenericRepositoryError ?? .fetchFailed
+        }
+    }
 
 }

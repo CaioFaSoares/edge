@@ -45,5 +45,10 @@ struct MainTabView: View {
             }
         }
         .tint(.blue)
+        .onAppear {
+            Task {
+                await viewModel.loadGroups()
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@
 //  Created by Caio Soares on 07/12/24.
 //
 
+import SwiftUI
+
 enum CostState: String, Codable {
     case planned    // estado inicial de um gasto. representa uma intenção
     case confirmed  // representa um compromisso financeiro
@@ -21,4 +23,22 @@ enum CostState: String, Codable {
         }
     }
     
+}
+
+extension CostState {
+    var displayName: String {
+        switch self {
+        case .planned: return "Planejado"
+        case .confirmed: return "Confirmado"
+        case .launched: return "Lançado"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .planned: return .blue
+        case .confirmed: return .orange
+        case .launched: return .green
+        }
+    }
 }

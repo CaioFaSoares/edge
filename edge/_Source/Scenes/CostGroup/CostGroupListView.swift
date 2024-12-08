@@ -20,7 +20,7 @@ struct CostGroupListView: View {
             List {
                 ForEach(viewModel.costGroups) { group in
                     NavigationLink {
-                        CostGroupDetailView(group: group)
+                        CostGroupDetailView(group: group, viewModel: viewModel)
                     } label: {
                         CostGroupRowView(group: group)
                     }

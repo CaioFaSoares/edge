@@ -12,15 +12,6 @@ struct RootView: View {
         repository: UserDefaultsPeriodRepository()
     )
     @StateObject private var onboardingManager = OnboardingManager()
-    @StateObject private var viewModel: CostGroupViewModel
-    
-    init() {
-        let periodManagerInstance = PeriodManager(repository: UserDefaultsPeriodRepository())
-        _viewModel = StateObject(wrappedValue: CostGroupViewModel(
-            repository: UserDefaultsCostRepository(),
-            periodManager: periodManagerInstance
-        ))
-    }
     
     var body: some View {
         if !onboardingManager.hasCompletedOnboarding {

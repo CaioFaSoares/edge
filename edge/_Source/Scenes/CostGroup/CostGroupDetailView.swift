@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CostGroupDetailView: View {
     let group: CostGroup
+    @ObservedObject var viewModel: CostGroupViewModel
+    @State private var showingNewCost = false
     
     var body: some View {
         List {
@@ -26,7 +28,29 @@ struct CostGroupDetailView: View {
                 LabeledContent("Recorrente", value: group.isRecurrent ? "Sim" : "Não")
                 LabeledContent("Grupo Rápido", value: group.isQuickGroup ? "Sim" : "Não")
             }
+            
+            Section("Custos") {
+                // Aqui virá a lista de custos
+                if viewModel.costs.isEmpty {
+                    Text("Nenhum custo registrado")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(viewModel.costs) { cost in
+                        CostRowView(cost: cost)
+                    }
+                }
+            }
         }
         .navigationTitle(group.name)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { showingNewCost = true }) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingNewCost) {
+            NewCostView(viewModel: viewModel, group: group)
+        }
     }
 }

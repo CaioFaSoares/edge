@@ -13,6 +13,10 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section("Períodos") {
+                NavigationLink("Lista de Períodos") {
+                    PeriodListView(periodManager: periodManager)
+                }
+                
                 NavigationLink("Configuração do Período") {
                     PeriodSettingsView(periodManager: periodManager)
                 }
@@ -24,7 +28,7 @@ struct SettingsView: View {
             
             Section("Aplicativo") {
                 // Aqui você pode adicionar outras configurações do app
-                Text("Versão 1.0")
+                Text("Versão 1.0 - Desenvolvido @ copland")
                     .foregroundStyle(.secondary)
             }
         }
