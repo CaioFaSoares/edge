@@ -180,6 +180,7 @@ extension CostGroupViewModel {
                 confirmedTotal += cost.amount
             case .launched:
                 // Lançado representa o que já foi efetivamente gasto
+                confirmedTotal += cost.amount
                 launchedTotal += cost.amount
             }
         }
