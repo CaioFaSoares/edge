@@ -21,7 +21,7 @@ class PeriodConfigurationManager {
     func loadConfiguration() -> PeriodConfiguration {
         guard let data = defaults.data(forKey: StorageKey.configuration),
               let config = try? JSONDecoder().decode(PeriodConfiguration.self, from: data) else {
-            return .default
+            return .init(closingDay: 1)
         }
         return config
     }
@@ -37,7 +37,7 @@ class PeriodConfigurationManager {
         defaults.set(data, forKey: StorageKey.configuration)
         
         if !defaults.synchronize() {
-            throw CostRepositoryError.saveFailed
+            throw RepositoryError.saveFailed
         }
     }
 }

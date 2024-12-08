@@ -19,9 +19,7 @@ struct RootView: View {
         )
     )
     var body: some View {
-        // TabView é o container principal que gerencia nossas diferentes abas
         TabView {
-            // Primeira aba: Visão geral (Dashboard)
             NavigationStack {
                 DashboardView()
                     .navigationTitle("Visão Geral")
@@ -30,7 +28,6 @@ struct RootView: View {
                 Label("Visão Geral", systemImage: "chart.bar.fill")
             }
             
-            // Segunda aba: Lista de grupos de custo
             NavigationStack {
                 CostGroupListView(viewModel: viewModel)
                     .navigationTitle("Grupos")
@@ -39,16 +36,14 @@ struct RootView: View {
                 Label("Grupos", systemImage: "folder.fill")
             }
             
-            // Terceira aba: Configurações
             NavigationStack {
-                SettingsView()
+                SettingsView(periodManager: periodManager)
                     .navigationTitle("Configurações")
             }
             .tabItem {
                 Label("Configurações", systemImage: "gear")
             }
         }
-        // Aplicamos um estilo consistente à TabView
-        .tint(.blue) // Cor dos ícones e textos selecionados
+        .tint(.blue)
     }
 }

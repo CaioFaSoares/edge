@@ -7,18 +7,12 @@
 
 import Foundation
 
-struct FinancialPeriod: Identifiable, Codable {
+struct Period: Identifiable, Codable {
     let id: UUID
-    var startDate: Date
-    var endDate: Date
+    let startDate: Date
+    let endDate: Date
     var isActive: Bool
-    var isClosed: Bool
-    
-    // Referência aos grupos de custo deste período
     var costGroupIDs: [UUID]
-    
-    // Status do carry over (transição entre períodos)
-    var carryOverStatus: CarryOverStatus
     
     // Valores do período
     var plannedTotal: Decimal

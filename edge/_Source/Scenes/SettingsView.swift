@@ -7,12 +7,25 @@
 
 import SwiftUI
 
-// View de configurações (implementação inicial básica)
 struct SettingsView: View {
+    let periodManager: PeriodManager
+    
     var body: some View {
         List {
-            Section("Preferências") {
-                Text("Em desenvolvimento...")
+            Section("Períodos") {
+                NavigationLink("Configuração do Período") {
+                    PeriodSettingsView(periodManager: periodManager)
+                }
+                
+                NavigationLink("Controle de Períodos") {
+                    PeriodControlView(periodManager: periodManager)
+                }
+            }
+            
+            Section("Aplicativo") {
+                // Aqui você pode adicionar outras configurações do app
+                Text("Versão 1.0")
+                    .foregroundStyle(.secondary)
             }
         }
     }

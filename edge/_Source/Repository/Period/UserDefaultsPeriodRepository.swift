@@ -19,23 +19,23 @@ class UserDefaultsPeriodRepository: PeriodRepository {
         self.defaults = defaults
     }
         
-    func fetchCurrentPeriod() async throws -> FinancialPeriod? {
+    func fetchCurrentPeriod() async throws -> Period? {
         guard let data = defaults.data(forKey: StorageKey.currentPeriod),
-              let period = try? JSONDecoder().decode(FinancialPeriod.self, from: data) else {
+              let period = try? JSONDecoder().decode(Period.self, from: data) else {
                   return nil
               }
         return period
     }
     
-    func fetchAllPeriods() async throws -> [FinancialPeriod] {
+    func fetchAllPeriods() async throws -> [Period] {
         guard let data = defaults.data(forKey: StorageKey.periods),
-              let periods = try? JSONDecoder().decode([FinancialPeriod].self, from: data) else {
+              let periods = try? JSONDecoder().decode([Period].self, from: data) else {
             return []
         }
         return periods
     }
  
-    func savePeriod(_ period: FinancialPeriod) async throws {
+    func savePeriod(_ period: Period) async throws {
         var periods = try await fetchAllPeriods()
         
         if periods.contains(where: {
@@ -55,15 +55,15 @@ class UserDefaultsPeriodRepository: PeriodRepository {
         }
         
         if !defaults.synchronize() {
-            throw CostRepositoryError.saveFailed
+            throw RepositoryError.saveFailed
         }
     }
     
-    func updatePeriod(_ period: FinancialPeriod) async throws {
+    func updatePeriod(_ period: Period) async throws {
         
     }
     
-    func deletePeriod(_ period: FinancialPeriod) async throws {
+    func deletePeriod(_ period: Period) async throws {
         
     }
     

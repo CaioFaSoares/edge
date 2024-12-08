@@ -7,9 +7,9 @@
 
 
 protocol PeriodRepository {
-    func fetchCurrentPeriod() async throws -> FinancialPeriod?
-    func fetchAllPeriods() async throws -> [FinancialPeriod]
-    func savePeriod(_ period: FinancialPeriod) async throws
-    func updatePeriod(_ period: FinancialPeriod) async throws
-    func deletePeriod(_ period: FinancialPeriod) async throws
+    func fetchCurrentPeriod() async throws -> Period?
+    func fetchAllPeriods() async throws -> [Period]
+    func savePeriod(_ period: Period) async throws
+    func updatePeriod(_ period: Period) async throws
+    func deletePeriod(_ period: Period) async throws
 }

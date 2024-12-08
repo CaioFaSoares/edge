@@ -6,7 +6,7 @@
 //
 
 
-enum CostRepositoryError: Error {
+enum RepositoryError: Error {
     case saveFailed
     case fetchFailed
     case deleteFailed
